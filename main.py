@@ -1,5 +1,5 @@
 from student import Student, Topic
-from agent import StudyAgent
+from study_planner import StudyPlanner
 
 
 student = Student(
@@ -34,16 +34,16 @@ student.add_topic(
     )
 )
 
-agent = StudyAgent()
+planner = StudyPlanner()
 
-ranked_topics = agent.rank_topics(student.topics)
+study_plan = planner.create_plan(student)
 
-print("\nStudy Priority Ranking\n")
+print(f"\nStudy Plan for {student.name}")
+print(f"Available Time: {student.available_study_minutes} minutes\n")
 
-for index, topic in enumerate(ranked_topics, start=1):
-    priority = agent.calculate_priority(topic)
-
+for index, item in enumerate(study_plan, start=1):
     print(
-        f"{index}. {topic.name} "
-        f"- Priority Score: {priority}"
+        f"{index}. {item['topic']} "
+        f"- Priority: {item['priority']} "
+        f"- Study Time: {item['minutes']} minutes"
     )
