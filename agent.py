@@ -7,27 +7,17 @@ class StudyAgent:
         self.fuzzy_engine = FuzzyStudyEngine()
 
     def calculate_priority(self, topic: Topic) -> float:
-        """
-        Calculate study priority using fuzzy reasoning.
 
-        The agent considers:
-        - Student mastery
-        - Topic difficulty
-        - Number of days until the exam
-
-        Higher score = higher study priority.
-        """
+        performance_trend = topic.get_performance_trend()
 
         return self.fuzzy_engine.calculate_priority(
             mastery=topic.mastery,
             difficulty=topic.difficulty,
-            days_to_exam=topic.days_to_exam
+            days_to_exam=topic.days_to_exam,
+            performance_trend=performance_trend
         )
 
     def rank_topics(self, topics):
-        """
-        Rank topics from highest to lowest study priority.
-        """
 
         return sorted(
             topics,
